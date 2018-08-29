@@ -1,0 +1,84 @@
+﻿@model Neo4jCinema.Models.MovieDetailsViewModel
+
+@{
+    ViewBag.Title = "MovieDetails";
+    Layout = "~/Views/Shared/_UserHomeLayout.cshtml";
+}
+
+<html>
+<head>
+    <link href="~/Content/CustomStyle.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@Model.Movie.MovieName - Details</title>
+</head>
+
+<body class="h-100" style="background-image: url('../../Content/Backgrounds/MovieBackground.jpg');">
+    <div class="container d-flex h-100">
+        <div class="row align-self-center w-100" style="margin-top:30px;">
+            <div class="col-md-10 mx-auto">
+                <div class="card text-white" style="background-color: rgba(70, 70, 70, 0.5);">
+                    <div class="card-header text-center">
+                        <h5>@Model.Movie.MovieName</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <p class="card-text">Directed by: @Model.Movie.MovieDirector</p>
+                                    <p class="card-text">Genre: @Model.Movie.MovieGenre</p>
+                                    <p class="card-text">Release Year: @Model.Movie.ReleaseYear</p>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top:20px;">
+                                <div class="col text-center">
+                                    <p>Starring: </p>
+                                    <ul class="list-group list-group-item-dark" style="border-radius:4px;">
+                                        @foreach (var a in Model.MovieActors)
+                                        {
+                                            if (a != null)
+                                            {
+                                                <li class="list-group-item bg-light">@a.ActorFullName</li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="row text-center" style="margin-top:20px;">
+                                <div class="col-md-4 offset-4">
+                                    @if (ViewBag.MovieWatched == 1)
+                                    {
+                                    }
+                                    else if (ViewBag.MovieWatched == 0)
+                                    {
+                                        <p> Have you watched this movie? </p>
+                                        @Html.ActionLink("No", "HaventWatchedMovie", "Movie", new { Model.Movie.MovieId, Model.CurrentUser.UserId }, new { @class = "btn btn-block btn-danger  pull-right", @style = "color:white;" })
+
+
+                                        @Html.ActionLink("Yes", "WatchedMovie", "Movie", new { Model.Movie.MovieId, Model.CurrentUser.UserId }, new { @class = "btn btn-block btn-success  pull-right", @style = "color:white;" })
+                                    }
+                                </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</body>
+
+
+
+
+
+
+</html>
+

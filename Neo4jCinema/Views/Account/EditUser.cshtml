@@ -1,0 +1,213 @@
+﻿@model Neo4jCinema.Models.AccountDashboardViewModel
+
+@{
+    ViewBag.Title = "EditUser";
+    Layout = "~/Views/Shared/_UserHomeLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html class="h-100">
+<head>
+    <link href="~/Content/CustomStyle.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Neo4j Cinema</title>
+</head>
+<body class="h-100" style="background-image: url('../../Content/Backgrounds/CinemaBackground.jpg');">
+    <div class="container d-flex h-100">
+        <div class="row w-100 justify-content-center" style="margin-top:30px;">
+
+            <div class="col-md-10 text-center">
+                <div class="card" style="background-color:rgba(50,50,50,0.5);">
+                    <div class="card-header">
+
+                        <div class="col">
+                            <a class="btn btn-info" style="margin:2px;" data-toggle="collapse" href="#following" role="button" aria-expanded="false" aria-controls="following">
+                                Following
+                            </a>
+
+                            <a class="btn btn-info" style="margin:2px;" data-toggle="collapse" href="#followers" role="button" aria-expanded="false" aria-controls="followers">
+                                Followers
+                            </a>
+
+                           
+
+
+                            <a class="btn btn-danger" style="margin:2px;" data-toggle="collapse" href="#settings" role="button" aria-expanded="false" aria-controls="settings">
+                                Settings
+                            </a>
+                        </div>
+                    </div>
+                    <!-- FIND USERS START-->
+                        <div class="card card-body" style="background-color:rgba(70,70,70, 0.3);">
+                            <h6 class="card-subtitle mb-2" style="color:white;">Search Users By Username:</h6>
+                            @using (Html.BeginForm("FindUserByUsername", "Account"))
+                            {
+                                @Html.Hidden("UserId", Model.CurrentUser.UserId)
+                                <div class="row" style="color:white; margin-top:15px;">
+                                    <div class="input-group mb-3">
+                                        @Html.TextBoxFor(u => u.SearchUsername, new { @class = "form-control", @placeholder = "Enter Username" })
+                                        <div class="input-group-append">
+                                            <input type="submit" value="Search" class="btn btn-success" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <div class="row" style="color:white; margin-top:15px;">
+                                <div class="col">
+                                    <ul class="list-group">
+                                        @using (Html.BeginForm("FollowUser", "Account"))
+                                        {
+                                            @Html.Hidden("UserId", Model.CurrentUser.UserId)
+
+                                            foreach (var f in Model.FoundUsers)
+                                            {
+
+                                                if (Model.Following.Any(user => user.UserId == f.UserId))
+                                                {
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center followers">
+                                                        @f.FirstName @f.LastName
+                                                        <span class=""><input type="submit" disabled value="Already Following" class="btn btn-success badge-pill" /></span>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    @Html.Hidden("followedUsername", f.Username)
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center followers">
+                                                        @f.FirstName @f.LastName
+                                                        <span class=""><input type="submit" value="Follow" class="btn btn-info badge-pill" /></span>
+                                                    </li>
+                                                }
+                                            }
+
+                                        }
+
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    <!-- FIND USERS END -->
+                    <!-- FOLLOWING START-->
+                    <div class="collapse" id="following">
+                        <div class="card card-body" style="background-color:rgba(70,70,70, 0.3);">
+                            <h6 class="card-subtitle mb-2" style="color:white;">People You Follow:</h6>
+                            <ul class="list-group">
+                                @using (Html.BeginForm("UnfollowUser", "Account"))
+                                {
+                                    @Html.Hidden("UserId", Model.CurrentUser.UserId)
+
+                                    foreach (var f in Model.Following)
+                                    {
+                                        @Html.Hidden("unfollowedUsername", f.Username)
+                                        <li class="list-group-item d-flex justify-content-between align-items-center followers">
+                                            @f.Username
+                                            <span class=""><input type="submit" value="Unfollow" class="btn btn-danger badge-pill" /></span>
+                                        </li>
+                                    }
+
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- FOLLOWING END -->
+                    <!-- FOLLOWERS START-->
+                    <div class="collapse" id="followers">
+                        <div class="card card-body" style="background-color:rgba(70,70,70, 0.3);">
+                            <h6 class="card-subtitle mb-2" style="color:white;">People That Follow You:</h6>
+                            <ul class="list-group">
+                              
+                                    @foreach (var f in Model.Followers)
+                                    {
+                                        <li class="list-group-item d-flex justify-content-between align-items-center followers">
+                                            @f.Username
+                                        </li>
+                                    }
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- FOLLOWERS END -->
+                    
+                    <!-- SETTINGS START-->
+                    <div class="collapse" id="settings">
+                        <div class="card card-body" style="background-color:rgba(70,70,70, 0.3);">
+                            <h6 class="card-subtitle mb-2" style="color:white;">Account Settings:</h6>
+                            @using (Html.BeginForm("UpdateInformation", "Account"))
+                            {
+                                <!-- First and Last name options start-->
+                            <div class="row" style="color:white;">
+                                @Html.Hidden("UserId", Model.CurrentUser.UserId)
+                                <div class="col">
+                                    <label>First Name</label>
+                                    @Html.TextBoxFor(u => u.CurrentUser.FirstName, new { @class = "form-control" })
+                                </div>
+                                <div class="col">
+                                    <label>Last Name</label>
+                                    @Html.TextBoxFor(u => u.CurrentUser.LastName, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                                <!-- First and Last name options end-->
+                                <!-- Email address options start-->
+                                <div class="row" style="color:white; margin-top:10px;">
+                                    <div class="col">
+                                        <label>Email Address</label>
+                                        @Html.TextBoxFor(u => u.CurrentUser.EmailAddress, new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="row text-left" style="color:white; margin-top:10px;">
+                                    <div class="col">
+                                        <div class="col text-left">
+                                            <input type="submit" value="Update Information" class="btn btn-success" style="margin-top:20px;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                                <!-- Email address options end-->
+                                <!-- Password options start-->
+                                <div class="row" style="color:white; margin-top:20px;">
+                                    <div class="col">
+                                        <h6 class="card-subtitle mb-2" style="color:white; cursor:pointer;" data-toggle="collapse" href="#password" role="button" aria-expanded="false" aria-controls="collapseExample">Password Settings (Click Here):</h6>
+                                    </div>
+                                </div>
+                                <div class="row " style="color:white; margin-top:15px;">
+                                    <div class="col">
+                                        <div class="collapse" id="password">
+                                            @using (Html.BeginForm("UpdatePassword", "Account"))
+                                            {
+                                                @Html.Hidden("UserId", Model.CurrentUser.UserId)
+                                                <div class="col">
+                                                    <label>Old Password</label>
+                                                    @Html.TextBoxFor(u => u.OldPassword, new { @class = "form-control", type = "password", @id = "oldPasswordInput" })
+                                                </div>
+                                                <div class="col">
+                                                    <label>New Password</label>
+                                                    @Html.TextBoxFor(u => u.NewPassword, new { @class = "form-control", type = "password", @id = "newPasswordInput" })
+                                                </div>
+
+
+                                                <div class="col text-left">
+                                                    <input type="submit" value="Update Password" class="btn btn-success" style="margin-top:20px;" />
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Password options end-->
+                            </div>
+                    </div>
+                    <!-- SETTINGS END -->
+                    <div class="card-footer text-muted">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

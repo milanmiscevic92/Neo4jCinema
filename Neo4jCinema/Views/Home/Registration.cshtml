@@ -1,0 +1,73 @@
+﻿@model Neo4jCinema.Models.RegistrationViewModel
+
+@{
+    ViewBag.Title = "Neo4j Cinema Registration";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html class="h-100">
+<head>
+    <link href="~/Content/CustomStyle.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Neo4j Cinema</title>
+</head>
+<body class="h-100" style="background-image: url('../../Content/Backgrounds/CinemaBackground.jpg');">
+    <div class="container d-flex h-100">
+        <div class="row align-self-center w-100">
+
+            <div class="col-md-6 mx-auto">
+                @using (Html.BeginForm("RegisterUser", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="card text-white" style="background-color: rgba(70, 70, 70, 0.5);">
+                        <div class="card-header">
+                            <h5>Register</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>First Name</label>
+                                        @Html.TextBoxFor(u => u.User.FirstName, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col">
+                                        <label>Last Name</label>
+                                        @Html.TextBoxFor(u => u.User.LastName, new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Email</label>
+                                        @Html.TextBoxFor(u => u.User.EmailAddress, new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Username</label>
+                                        @Html.TextBoxFor(u => u.User.Username, new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Password</label>
+                                        @Html.TextBoxFor(u => u.User.Password, new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-block btn-danger">Register</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

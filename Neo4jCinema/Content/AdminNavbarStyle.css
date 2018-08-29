@@ -1,0 +1,43 @@
+﻿.blurred
+{
+    border-radius:0px;
+    background-color:rgba(50, 50, 50,0.5);
+    color:white;
+    font-size:x-large;
+    font-weight:bold;
+    border-bottom:none;
+    
+}
+
+.navbar-nav > li > a
+{
+    color:white;
+    font-size:large;
+    font-weight:500;
+    text-decoration:none;
+}
+
+.nav > li > a:hover, .nav > li > a:focus
+{
+    background-color:transparent;
+    text-decoration:none;
+}
+
+.just-text
+{
+    color:white;
+    font-size: large;
+    font-weight: 500;
+    text-decoration:none;
+    
+    line-height: 20px;
+
+    position: relative;
+    display: block;
+    padding: 10px 10px;
+}
+
+.just-toggler
+{
+    color:white;
+}

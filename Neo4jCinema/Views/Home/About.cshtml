@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "About";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html class="h-100">
+<head>
+    <link href="~/Content/CustomStyle.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Neo4j Cinema</title>
+</head>
+<body class="h-100" style="background-image: url('../../Content/Backgrounds/CinemaBackground.jpg');">
+    <div class="container h-100">
+        <div class="row text-center w-100" style="margin-top:50px;">
+          
+            <div class="col-md-12 text-white" style="font-size:large;">
+                <div class="card text-white" style="background-color: rgba(70, 70, 70, 0.5);">
+                    <div class="card-header">
+                        <h3>Welcome to Neo4JCinema!</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <p>Neo4JCinema is a school project that aims to demonstrate the use of Neo4J graph database.</p>
+                            <p style="margin-bottom:50px;"> It was also used as a practice project for Asp.Net MVC 5, Ninject and Bootstrap.</p>
+                            <p>
+                                Some of the functionalities are:
+                            </p>
+
+                            <ul style="list-style-type:none;">
+                                <li>Login</li>
+                                <li>Registration</li>
+                                <li>Browse movies, actors and events</li>
+                                <li>See most popular movies and events</li>
+                                <li>Search, follow and unfollow users</li>
+                                <li>Change account settings</li>
+                                <li>Create new movies, actors and events</li>
+                            </ul>
+
+                            <p style="margin-top:50px;">
+                                To browse the user part of the website, simply register via registration form and then log-in.
+                                To browse the admin part of the website, enter http://localhost:*port number*/Movie - (example: "http://localhost:62080/Movie").
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <p>There are a few things that need to be implemented:</p>
+                            <ul style="list-style-type:none;">
+                                <li>Validation via DataAnnotations</li>
+                                <li>Regular Expressions to prevent unvanted input</li>
+                                <li>Authorization for user and admin parts of the website</li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

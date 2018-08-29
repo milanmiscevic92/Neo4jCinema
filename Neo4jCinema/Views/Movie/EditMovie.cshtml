@@ -1,0 +1,165 @@
+﻿@model Neo4jCinema.Models.EditMovieViewModel
+
+@{
+    ViewBag.Title = "Edit Movie";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html class="h-100">
+<head>
+    <link href="~/Content/CustomStyle.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit Movie</title>
+</head>
+<body class="h-100" style="background-image: url('../../Content/Backgrounds/MovieBackground.jpg');">
+    <div class="container d-flex h-100">
+        <div class="row align-self-center w-100">
+
+            <div class="col-md-6 mx-auto">
+
+                <div class="card text-white" style="background-color: rgba(70, 70, 70, 0.5);">
+                    <div class="card-header">
+                        <h5>Edit Movie</h5>
+                    </div>
+                    @using (Html.BeginForm("EditMovie", "Movie", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="card-body">
+                            <div class="card-text">
+
+                                @Html.HiddenFor(m => m.Movie.MovieId)
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Movie Name</label>
+                                        @Html.TextBoxFor(m => m.Movie.MovieName, new { @class = "form-control" })
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Movie Genre</label>
+                                        @Html.TextBoxFor(m => m.Movie.MovieGenre, new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Movie Director</label>
+                                        @Html.TextBoxFor(m => m.Movie.MovieDirector, new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Release Year</label>
+                                        @Html.TextBoxFor(m => m.Movie.ReleaseYear, new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                @if (Model.Movie.MovieId != null)
+                                {
+                                    <div class="row" style="margin-top:15px;">
+                                        <div class="col">
+                                            <ul class="list-group">
+                                                <li class="list-group-item list-group-item-danger">List of actors</li>
+                                                @foreach (var i in Model.MovieActors)
+                                                {
+                                                    <li class="list-group-item">
+                                                        <div class="row">
+                                                            <div class="col" style="color:black;">
+                                                                @i.ActorFirstName @i.ActorLastName
+                                                            </div>
+
+                                                            <div class="col text-right">
+                                                                @Html.ActionLink("X", "RemoveActingRelationship", new { Model.Movie.MovieId, i.ActorId }, new { @class = "btn btn-danger btn-sm pull-right", @style = "color:white;" })
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                }
+
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- FOOTER BUTTONS -->
+
+                                    <div class="row" style="margin-top:15px; margin-bottom:15px;">
+                                        <div class="col">
+                                            <button type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#actorsModal">Add Actor</button>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="row" style="margin-top:15px; margin-bottom:15px;">
+                                        <div class="col">
+                                            <button disabled type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#actorsModal">Add Actor</button>
+                                        </div>
+                                    </div>
+                                }
+
+
+
+
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="submit" value="Save" class="btn btn-block btn-success" />
+                                    </div>
+
+                                    <div class="col">
+                                        @Html.ActionLink("Cancel", "Index", "Movie", null, new { @class = "btn btn-block btn-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                <!-- Actors modal -->
+                <!-- The Modal -->
+                <div class="modal fade" id="actorsModal">
+                    <div class="modal-dialog" >
+                        <div class="modal-content bg-dark" >
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title" style="color:white;">List of existing actors:</h4>
+                                <button type="button" class="close" data-dismiss="modal" style="color:white;">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <!-- PROBA -->
+                                <ul class="list-group">
+                                    @foreach (var i in Model.ExistingActors)
+                                    {
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <div class="col" style="color:black;">
+                                                    @i.ActorFirstName @i.ActorLastName
+                                                </div>
+
+                                                <div class="col text-right">
+                                                    @Html.ActionLink("Add", "AddActingRelationship", new { Model.Movie.MovieId, i.ActorId }, new { @class = "btn btn-success btn-sm pull-right", @style = "color:white;" })
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+
+                                </ul>
+                                <!-- PROBA-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Actors modal ending -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

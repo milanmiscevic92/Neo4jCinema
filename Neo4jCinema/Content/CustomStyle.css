@@ -1,0 +1,120 @@
+﻿body {
+    
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-size:cover;
+}
+
+.panel
+{
+    border:none;
+    background-color:rgba(155,155,155,0.6);
+    color:white;
+}
+
+.panel-default > .panel-heading
+{
+    border:none;
+    background-image:none;
+    background-color:rgba(155,155,155,0);
+    color:white;
+}
+
+.panel-default > .panel-footer
+{
+    border:none;
+    background-image:none;
+    background-color:rgba(155,155,155,0);
+    color:white;
+}
+
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color:rgba(16, 36, 101, 0.1);
+}
+
+.actionInput
+{
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+}
+
+.actionInput:hover
+{
+    color:orange;
+}
+
+.actionLinkLeft
+{
+    color:white;
+}
+
+.actionLinkRight
+{
+    color:black;
+    
+}
+
+.actionLinkRight:hover
+{
+    color:orange;
+    text-decoration:none;
+}
+
+.actionLinkLeft:hover
+{
+    color:orange;
+    text-decoration:none;
+}
+
+.somePanel
+{
+    background-color:rgba(155,155,155,0);
+    border-top:none;
+}
+
+.hoverTableColor
+{
+    background-color:rgba(0,0,0,0);
+    border:none;
+}
+
+.deleteButton
+{
+    color:white;
+}
+
+.deleteButton:hover
+{
+    color:orange;
+    text-decoration:none;
+    cursor:pointer;
+}
+.CustomLink
+{
+    color:black;
+}
+
+.CustomLink :hover
+{
+    color:orange;
+    text-decoration:none;
+}
+
+.followers
+{
+    background-color:rgba(70,70,70,0.8);
+    color:white;
+}
+
+.followersText
+{
+    font-size:small;
+}
+
+.followersText:hover
+{
+    text-decoration:none;
+    color:lightgrey;
+}

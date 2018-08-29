@@ -1,0 +1,90 @@
+﻿@model Neo4jCinema.Models.EventDetailsViewModel
+
+@{
+    ViewBag.Title = "EventDetails";
+    Layout = "~/Views/Shared/_UserHomeLayout.cshtml";
+}
+
+<html>
+<head>
+    <link href="~/Content/CustomStyle.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@Model.Event.EventName - Details</title>
+</head>
+
+<body class="h-100" style="background-image: url('../../Content/Backgrounds/ActorBackground.jpg');">
+    <div class="container d-flex h-100">
+        <div class="row align-self-center w-100" style="margin-top:30px;">
+            <div class="col-md-10 mx-auto">
+                <div class="card text-white" style="background-color: rgba(70, 70, 70, 0.5);">
+                    <div class="card-header text-center">
+                        <h5>@Model.Event.EventName</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <p class="card-text">Event Name: @Model.Event.EventName</p>
+                                    <p class="card-text">Location: @Model.Event.EventLocation</p>
+                                    <p class="card-text">Start Time: @Model.Event.EventStartTime.ToShortDateString()</p>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top:20px;">
+                                <div class="col text-center">
+                                    <p>People I Follow That Will Attend: </p>
+                                    <ul class="list-group list-group-item-dark" style="border-radius:4px;">
+                                        @foreach (var p in Model.PeopleIFollowThatAttend)
+                                        {
+                                            if (p != null)
+                                            {
+                                                <li class="list-group-item bg-light">@p.Username</li>
+                                            }
+                                            else
+                                            {
+                                                <li class="list-group-item bg-warning" style="color:white;">None of the people you follow are attending!</li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="row text-center" style="margin-top:20px;">
+                                <div class="col-md-4 offset-4">
+                                    @if (ViewBag.AttendingEvent == 1)
+                                    {
+                                        <p> Do you want to cancel this event? </p>
+                                        @Html.ActionLink("Cancel", "CancelEvent", "Event", new { Model.Event.EventId, Model.CurrentUser.UserId }, new { @class = "btn btn-block btn-danger  pull-right", @style = "color:white;" })
+
+                                    }
+                                    else if (ViewBag.AttendingEvent == 0)
+                                    {
+                                        <p> Are you going to attend this event? </p>
+                                        @Html.ActionLink("Yes", "AttendEvent", "Event", new { Model.Event.EventId, Model.CurrentUser.UserId }, new { @class = "btn btn-block btn-success  pull-right", @style = "color:white;" })
+                                    }
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</body>
+
+
+
+
+
+
+</html>
+

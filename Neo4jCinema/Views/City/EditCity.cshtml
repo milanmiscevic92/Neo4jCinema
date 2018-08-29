@@ -1,0 +1,81 @@
+﻿@model Domain.Entities.City
+
+@{
+    ViewBag.Title = "Edit City";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html class="h-100">
+<head>
+    <link href="~/Content/CustomStyle.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit City</title>
+</head>
+<body class="h-100" style="background-image: url('../../Content/Backgrounds/CityBackground.jpg');">
+    <div class="container d-flex h-100">
+        <div class="row align-self-center w-100">
+
+            <div class="col-md-6 mx-auto">
+
+                <div class="card text-white" style="background-color: rgba(70, 70, 70, 0.5);">
+                    <div class="card-header">
+                        <h5>Edit City</h5>
+                    </div>
+                    @using (Html.BeginForm("EditCity", "City", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="card-body">
+                            <div class="card-text">
+
+                                @Html.HiddenFor(c => c.CityId)
+                                <div class="row">
+                                    <div class="col">
+                                        <label>City Name</label>
+                                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="row text-center" style="margin-top:5px;">
+                                    <div class="col">
+                                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger font-weight-bold" })
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Postal Code</label>
+                                        @Html.TextBoxFor(m => m.Zip, new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="row text-center" style="margin-top:5px;">
+                                    <div class="col">
+
+                                        @Html.ValidationMessageFor(m => m.Zip, "", new { @class = "text-danger font-weight-bold" })
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-top:15px;">
+                                    <div class="col">
+                                        <input type="submit" value="Save" class="btn btn-block btn-success" />
+                                    </div>
+
+                                    <div class="col">
+                                        @Html.ActionLink("Cancel", "Index", "City", null, new { @class = "btn btn-block btn-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                
+                            </div>
+                        </div>
+                    }
+                </div>
+                </div>
+        </div>
+    </div>
+
+</body>
+</html>

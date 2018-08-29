@@ -1,0 +1,77 @@
+﻿@model Neo4jCinema.Models.CinemaListViewModel
+
+@{
+    ViewBag.Title = "Cinemas - Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Content/CustomStyle.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Administration - Cinemas</title>
+</head>
+<body class="h-100" style="background-image: url('../../Content/Backgrounds/CinemaBackground.jpg');">
+    <div class="container d-flex h-100">
+        <div class="row align-self-center w-100" style="margin-top:30px;">
+            <div class="col-md-10 mx-auto">
+                <div class="card text-white" style="background-color: rgba(70, 70, 70, 0.5);">
+                    <div class="card-header">
+                        <h5>All Cinemas</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <!-- Cinemas table -->
+                            <table class="table table-hover table-dark hoverTableColor">
+                                <thead style="border-bottom:2px solid white;">
+                                    <tr>
+                                        <th scope="col" style="border-top:0px; border-bottom:0px;">Cinema Name</th>
+                                        <th scope="col" style="border-top:0px; border-bottom:0px;">Location</th>
+                                        <th scope="col" style="border-top:0px; border-bottom:0px;">Number of seats</th>
+                                        <th scope="col" style="border-top:0px; border-bottom:0px;">Date Built</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var i in Model.Cinemas)
+                                    {
+                                    <tr>
+                                        <td style="border-top:0px; border-bottom:1px solid white;">@Html.ActionLink(i.CinemaName, "EditCinema", new { i.CinemaId }, new { @class = "actionLinkLeft" })</td>
+                                        <td style="border-top:0px; border-bottom:1px solid white;">@i.CinemaLocation</td>
+                                        <td style="border-top:0px; border-bottom:1px solid white;">@i.NumberOfSeats</td>
+                                        <td style="border-top:0px; border-bottom:1px solid white;">@i.DateBuilt</td>
+
+                                        @using (Html.BeginForm("DeleteCinema", "Cinema"))
+                                        {
+                                            @Html.Hidden("CinemaId", i.CinemaId)
+                                            <td class="text-right" style="border-top:1px solid white; border-bottom:1px solid white;">
+                                                <input type="submit" value="Delete" class="actionInput deleteButton" />
+                                            </td>
+                                        }
+                                    </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                            <!-- Cinemas table ending -->
+
+                            <div class="text-right">
+                                @Html.ActionLink("Create new cinema", "CreateCinema", "Cinema", null, new { @class = "btn btn-success", @style = "margin-top:10px;" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

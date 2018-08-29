@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <script src="~/Scripts/jquery-3.0.0.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/AdminNavbarStyle.css" rel="stylesheet" />
+    <link href="~/Content/hover.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    <div  class="h-100">
+        <nav class="navbar navbar-expand-md navbar-dark  blurred">
+            <!-- Navbar brand -->
+            @Html.ActionLink("Neo4j Cinema", "Index", "Home", null, new { @class = "navbar-brand", @style = "margin-left:10px; color:white;" })
+            
+            <!-- Toggler -->
+            <button class="navbar-toggler just-toggler" type="button" data-toggle="collapse" data-target="#homeNavbar" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Collapsing items -->
+            <div class="collapse navbar-collapse" id="homeNavbar">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    @if (ViewBag.Navbar == 1)
+                    {
+                        <li class="nav-item hvr-underline-reveal my-2 my-sm-0" style="margin-right:5px;">
+                            @Html.ActionLink("Register", "Registration", "Home", null, new { @class = "just-text" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item hvr-underline-reveal my-2 my-sm-0" style="margin-right:5px;">
+                            @Html.ActionLink("Sign In", "Index", "Home", null, new { @class = "just-text" })
+                        </li>
+                    }
+
+                    <li class="nav-item hvr-underline-reveal my-2 my-sm-0">
+                        @Html.ActionLink("About", "About", "Home", null, new { @class = "just-text" })
+                    </li>
+
+                </ul>
+                
+            </div>
+
+
+
+        </nav>
+            @RenderBody()
+    </div>
+</body>
+</html>

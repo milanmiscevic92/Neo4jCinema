@@ -1,0 +1,84 @@
+﻿@model Neo4jCinema.Models.EditCinemaViewModel
+@using Domain.Entities
+
+@{
+    ViewBag.Title = "Edit Cinema";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html  class="h-100">
+<head>
+    <link href="~/Content/CustomStyle.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit Cinema</title>
+</head>
+<body class="h-100" style="background-image: url('../../Content/Backgrounds/CinemaBackground.jpg');">
+    <div class="container d-flex h-100">
+        <div class="row align-self-center w-100">
+
+            <div class="col-md-6 mx-auto">
+
+                <div class="card text-white" style="background-color: rgba(70, 70, 70, 0.5);">
+                    <div class="card-header">
+                        <h5>Edit Cinema</h5>
+                    </div>
+                    @using (Html.BeginForm("EditCinema", "Cinema", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="card-body">
+                            <div class="card-text">
+
+                                @Html.HiddenFor(c => c.Cinema.CinemaId)
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Cinema Name</label>
+                                        @Html.TextBoxFor(c => c.Cinema.CinemaName, new { @class = "form-control" })
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Location</label>
+                                        @Html.DropDownListFor(c => c.SelectedCinemaLocationId, new SelectList(Model.CitiesSelectList, "Value", "Text", Model.CurrentCinemaLocationId), "-Choose Option-", new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Number of Seats</label>
+                                        @Html.TextBoxFor(c => c.Cinema.NumberOfSeats, new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Year of Construction</label>
+                                        @Html.TextBoxFor(c => c.Cinema.DateBuilt, new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-top:15px;">
+                                    <div class="col">
+                                        <input type="submit" value="Save" class="btn btn-block btn-success" />
+                                    </div>
+
+                                    <div class="col">
+                                        @Html.ActionLink("Cancel", "Index", "Cinema", null, new { @class = "btn btn-block btn-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

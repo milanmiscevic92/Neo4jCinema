@@ -1,0 +1,206 @@
+﻿@model Neo4jCinema.Models.MainDashboardViewModel
+
+@{
+    ViewBag.Title = "Welcome";
+    Layout = "~/Views/Shared/_UserHomeLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Content/CustomStyle.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Welcome</title>
+</head>
+<body class="h-100" style="background-image: url('../../Content/Backgrounds/CinemaBackground.jpg');">
+    <div class="container d-flex h-100">
+        <div class="row w-100 justify-content-center" style="margin-top:30px;">
+
+            <!-- START DRUGOG CARDA -->
+            <div class="col-md-4 text-center">
+                <div class="card" style="background-color:rgba(50,50,50,0.5);">
+                    <div class="card-header">
+
+
+                    </div>
+                    <!-- MOST POPULAR MOVIES START -->
+                    <div class="card card-body" style="background-color:rgba(70,70,70, 0.3);">
+                        <h6 class="card-subtitle mb-2" style="color:white;">5 Most Popular Movies:</h6>
+
+                        <div class="row" style="color:white; margin-top:15px;">
+                            <div class="col">
+                                <ul class="list-group">
+                                    @if (!Model.TopMovies.Any())
+                                    {
+                                        <li class="list-group-item  followers">
+                                            No Watched Movies In Database!
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        foreach (var m in Model.TopMovies.Take(5))
+                                        {
+                                            if (m.Key != null)
+                                            {
+                                                <li class="list-group-item  followers">
+                                                    @Html.ActionLink(m.Key.MovieName, "MovieDetails", "Movie", new { m.Key.MovieId, Model.CurrentUser.UserId }, new { @class = "actionLinkLeft" })
+                                                </li>
+                                            }
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- MOST POPULAR MOVIES END -->
+                    <!-- MOST POPULAR MOVIES START -->
+                    <div class="card card-body" style="background-color:rgba(70,70,70, 0.3);">
+                        <h6 class="card-subtitle mb-2" style="color:white;">2 Most Popular Events:</h6>
+
+                        <div class="row" style="color:white; margin-top:15px;">
+                            <div class="col">
+                                <ul class="list-group">
+                                    @if (!Model.TopEvents.Any())
+                                    {
+                                        <li class="list-group-item  followers">
+                                            Nobody Attending / No Events In Database
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        foreach (var m in Model.TopEvents.Take(2))
+                                        {
+                                            if (m.Key != null)
+                                            {
+                                                <li class="list-group-item  followers">
+                                                    @Html.ActionLink(m.Key.EventName, "EventDetails", "Event", new { m.Key.EventId, Model.CurrentUser.UserId }, new { @class = "actionLinkLeft" })
+                                                </li>
+                                            }
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- MOST POPULAR MOVIES END -->
+
+
+                    <div class="card-footer text-muted">
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- END LEVOG CARDA -->
+            <!-- START PRVOG CARDA -->
+            <div class="col-md-8 text-center">
+                <div class="card" style="background-color:rgba(50,50,50,0.5);">
+                    <div class="card-header">
+
+
+                    </div>
+                    <!-- FIND USERS START-->
+                    <div class="card card-body" style="background-color:rgba(70,70,70, 0.3);">
+                        <h6 class="card-subtitle mb-2" style="color:white;">Search:</h6>
+                        @using (Html.BeginForm("SearchByCategory", "MainDashboard"))
+                        {
+                            @Html.Hidden("UserId", Model.CurrentUser.UserId)
+                            <div class="row" style="color:white; margin-top:15px;">
+                                <div class="input-group mb-3">
+                                    @Html.TextBoxFor(u => u.SearchString, new { @class = "form-control", @placeholder = "Pick a category and start searching..." })
+                                    <div class="input-group-append">
+                                        @Html.DropDownListFor(c => c.SelectedSearchCategory, new SelectList(Model.CategoriesSelectList, "Value", "Text"), new { @class = "form-control", @style = "border-radius:0px;" })
+                                        <input type="submit" value="Search" class="btn btn-success" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="row" style="color:white; margin-top:15px;">
+                            <div class="col">
+                                <ul class="list-group">
+                                    @if (ViewBag.Category == "0")
+                                    {
+                                        foreach (var m in Model.FoundMovies)
+                                        {
+                                            if (m != null)
+                                            {
+                                                <li class="list-group-item d-flex justify-content-between align-items-center followers">
+                                                    @Html.ActionLink(m.MovieName, "MovieDetails", "Movie", new { m.MovieId, Model.CurrentUser.UserId }, new { @class = "actionLinkLeft" })
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li class="list-group-item d-flex justify-content-between align-items-center followers">
+                                                    No Results Found!
+                                                </li>
+
+                                            }
+                                        }
+                                    }
+
+                                    else
+                                         if (ViewBag.Category == "1")
+                                    {
+                                        foreach (var a in Model.FoundActors)
+                                        {
+                                            if (a != null)
+                                            {
+                                                <li class="list-group-item d-flex justify-content-between align-items-center followers">
+                                                    @Html.ActionLink(a.ActorFullName, "ActorDetails", "Actor", new { a.ActorId, Model.CurrentUser.UserId }, new { @class = "actionLinkLeft" })
+
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li class="list-group-item d-flex justify-content-between align-items-center followers">
+                                                    No Results Found!
+                                                </li>
+                                            }
+
+                                        }
+                                    }
+                                    else
+                                         if (ViewBag.Category == "2")
+                                    {
+                                        foreach (var e in Model.FoundEvents)
+                                        {
+                                            if (e != null)
+                                            {
+                                                <li class="list-group-item d-flex justify-content-between align-items-center followers">
+                                                    @Html.ActionLink(e.EventName, "EventDetails", "Event", new { e.EventId, Model.CurrentUser.UserId }, new { @class = "actionLinkLeft" })
+                                                </li>
+                                            }
+
+                                            else
+                                            {
+                                                <li class="list-group-item d-flex justify-content-between align-items-center followers">
+                                                    No Results Found!
+                                                </li>
+                                            }
+
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="card-footer text-muted">
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- END PRVOG CARDA-->
+
+
+        </div>
+    </div>
+</body>
+
+</html>
+

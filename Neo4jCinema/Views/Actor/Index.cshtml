@@ -1,0 +1,58 @@
+﻿@model Neo4jCinema.Models.ActorListViewModel
+
+@{
+    ViewBag.Title = "Actors - Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link href="~/Content/CustomStyle.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Administration - Actors</title>
+</head>
+<body class="h-100" style="background-image: url('../../Content/Backgrounds/ActorBackground.jpg');">
+    <div class="container d-flex h-100">
+        <div class="row align-self-center w-100" style="margin-top:30px;">
+            <div class="col-md-10 mx-auto">
+                <div class="card text-white" style="background-color: rgba(70, 70, 70, 0.5);">
+                    <div class="card-header">
+                        <h5>All Actors</h5>
+                    </div>
+                    @foreach (var i in Model.Actors)
+                    {
+                    <div class="card-body">
+                        <h4 class="card-title">@Html.ActionLink(i.ActorFirstName + " " + i.ActorLastName, "EditActor", new { i.ActorId }, new { @class = "actionLinkLeft" })</h4>
+
+
+
+                        <p class="card-text text-left" style="font-style:italic; font-weight:400; margin-top:15px;">@i.Biography</p>
+
+                        @using (Html.BeginForm("DeleteActor", "Actor"))
+                        {
+                            <div class="text-right">
+                                @Html.Hidden("ActorId", i.ActorId)
+                                <input type="submit" value="Remove" class="btn btn-sm btn-outline-warning" />
+                            </div>
+                        }
+                    </div>
+                        <div class="card-footer text-muted">
+
+                        </div>
+                    }
+
+
+                        <div class="text-right">
+                            @Html.ActionLink("Create new actor", "CreateActor", "Actor", null, new { @class = "btn btn-success", @style = "margin-top:10px; margin-bottom:20px; margin-right:20px;" })
+                        </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
